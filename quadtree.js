@@ -3,14 +3,14 @@
  * Then, each of those quadrant may further be subdivided into
  * four sub-quadrants. The process continue everytime the 
  * capacity for each quadrant is reached.
- * v0.1 - QuadTree not working yet. 
- * 		Parent-child coordinate issue
+ * v0.5 - QuadTree working as expected.
  */
 class QuadTree {
 	constructor(boundary, n) {
 		this.boundary = boundary;	// Rectangle
 		this.capacity = n;
 		this.points = [];
+
 		this.divided = false;
 		this.northwest = null;
 		this.northeast = null;
@@ -21,11 +21,11 @@ class QuadTree {
 	subdivide () {
 		var r = this.boundary;
 
-		var nw = new Rectangle(r.x, r.y, r.w / 2, r.h / 2);
+		var nw = new Rectangle(r.x - r.w / 2, r.y - r.h / 2, r.w / 2, r.h / 2);
 		this.northwest = new QuadTree(nw, this.capacity);
-		var ne = new Rectangle(r.x + r.w / 2, r.y, r.w / 2, r.h / 2);
+		var ne = new Rectangle(r.x + r.w / 2, r.y - r.h / 2, r.w / 2, r.h / 2);
 		this.northeast = new QuadTree(ne, this.capacity);
-		var sw = new Rectangle(r.x, r.y + r.h / 2, r.w / 2, r.h / 2);
+		var sw = new Rectangle(r.x - r.w / 2, r.y + r.h / 2, r.w / 2, r.h / 2);
 		this.southwest = new QuadTree(sw, this.capacity);
 		var se = new Rectangle(r.x + r.w / 2, r.y + r.h / 2, r.w / 2, r.h / 2);
 		this.southeast = new QuadTree(se, this.capacity);
@@ -60,7 +60,11 @@ class QuadTree {
 		var r = this.boundary;
 		ctx.strokeStyle = 'grey';
 		ctx.lineWidth = '2';
-		ctx.strokeRect(r.x, r.y, r.w, r.h);
+		// Translate Centered x,y to Top Left x,y to be drawn
+		ctx.strokeRect(r.x - r.w,
+			r.y - r.h, 
+			r.w * 2, 
+			r.h * 2);
 
 		if (this.divided) {
 			this.northeast.show();

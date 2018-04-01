@@ -13,14 +13,18 @@ var ctx = canvas.getContext('2d');
 // Register click listner
 canvas.addEventListener('mousedown', mouseDown);
 
-// TODO: Recheck the location and size of rect
-var rect = new Rectangle(0, 0, canvas.width, canvas.height);
+// Important:
+// Boundary is defined as the center of the rectangle
+// (the parent) and is drawn with half its width and height
+var cx = canvas.width / 2;	// centered x
+var cy = canvas.height / 2;	// centered y
+var boundary = new Rectangle(cx, cy, cx, cy);
 var capacity = 4;
 
-var qTree = new QuadTree(rect, capacity);
+var qTree = new QuadTree(boundary, capacity);
 var pArr = [];
 
-for (var i = 0; i < 5; i++) {
+for (var i = 0; i < 250; i++) {
 	var x = Math.floor( Math.random() * canvas.width);
 	var y = Math.floor(Math.random() * canvas.height);
 	var p = new Point(x, y);
