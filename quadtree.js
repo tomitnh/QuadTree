@@ -3,6 +3,8 @@
  * Then, each of those quadrant may further be subdivided into
  * four sub-quadrants. The process continue everytime the 
  * capacity for each quadrant is reached.
+ * v0.1 - QuadTree not working yet. 
+ * 		Parent-child coordinate issue
  */
 class QuadTree {
 	constructor(boundary, n) {
