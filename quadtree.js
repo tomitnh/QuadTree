@@ -7,7 +7,7 @@
  */
 class QuadTree {
 	constructor(boundary, n) {
-		this.boundary = boundary;	// Rectangle
+		this.boundary = boundary;	// Centered x,y Rectangle
 		this.capacity = n;
 		this.points = [];
 
@@ -21,6 +21,7 @@ class QuadTree {
 	subdivide () {
 		var r = this.boundary;
 
+		// Create new centered x,y rect for new quadrants
 		var nw = new Rectangle(r.x - r.w / 2, r.y - r.h / 2, r.w / 2, r.h / 2);
 		this.northwest = new QuadTree(nw, this.capacity);
 		var ne = new Rectangle(r.x + r.w / 2, r.y - r.h / 2, r.w / 2, r.h / 2);
